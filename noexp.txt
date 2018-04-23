@@ -1,0 +1,42 @@
+#include<stdio.h>
+struct student
+{
+    int roll;
+    char name[10];
+    char subject1[10],subject2[10];
+    int marks1,marks2;
+}a[2];
+main()
+{
+    for(int i=0;i<2;i++)
+    {
+        //printf("enter the roll number \n");
+        scanf("%d",&a[i].roll);
+        //printf("enter the name \n");
+        scanf("%s",(a[i].name));
+        //printf("enter the subject");
+        scanf("%s",(a[i].subject1));
+        scanf("%d",&a[i].marks1);
+        scanf("%s",(a[i].subject2));
+        
+        scanf("%d",&a[i].marks2);
+        
+    }
+    
+    printf("|roll\t|name\t|subject1\t|marks|subject2\t|marks\t|\n");
+    printf("===========================================================\n");
+    for(int i=0;i<2;i++)
+    {
+        printf("|%d\t|",a[i].roll);
+        printf("%s\t|",a[i].name);
+        printf("%s\t|",a[i].subject1);
+        printf("%s\t|",a[i].subject2);
+        printf("%d\t|",a[i].marks1);
+        printf("%d\t|\n",a[i].marks2);
+    }
+    
+    
+    
+    
+
+}
