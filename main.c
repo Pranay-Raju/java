@@ -1,5 +1,5 @@
 #include<stdio.h>
-struct student
+typedef struct student
 {
     char name[20];
     int rollno;
@@ -8,50 +8,98 @@ struct student
     char subname[10];
     int marks;
     }sub[5];
-}obj[10];
-main()
+    float avg;
+} Student;
+char* parser(char* name )
 {
-    //input code
-    //taking input from usser
-    for(int i=0;i<10;i++)
-    {
+    
+}
+typedef struct nd
+{
+ Student s;
+ struct nd *next;
+ 
+} Node;
+
+float avg(Student s)
+{
+int avg = 0;
+for(int i=0;i<5;i++)
+{
+    avg+=s.sub[i].marks;
+    
+}
+return ((float)avg)/5.0;
+}
+
+void fn(Node *ptr, int i)
+{
+    
         printf("\nenter name of student  \t  %d \t:" ,i+1);
         //gets(obj[i].name);
-        scanf("%s",&(obj[i].name));
-        puts(obj[i].name);
+        scanf("%s",&(ptr->s.name));
+        puts(ptr->s.name);
         
-        scanf("%d",&(obj[i].rollno));
-        printf("ehter roll no of student  %d \t:%d \n", i+1, obj[i].rollno);
+        scanf("%d",&(ptr->s.rollno));
+        printf("ehter roll no of student  %d \t:%d \n", i+1, ptr->s.rollno);
         
         for(int j=0;j<5;j++)
         {
-        scanf(" %s", &(obj[i].sub[j].subname));
-        printf("enter subjects of student %d \t:%s \n",i+1,obj[i].sub[j].subname);
-        scanf(" %d", &(obj[i].sub[j].marks));
-        printf("enter marks of studens \t  %d \t:%d \n",i+1,obj[i].sub[j].marks);
+        scanf(" %s", &(ptr->s.sub[j].subname));
+        printf("enter subjects of student %d \t:%s \n",i+1,ptr->s.sub[j].subname);
+        scanf(" %d", &(ptr->s.sub[j].marks));
+        printf("enter marks of studens \t  %d \t:%d \n",i+1,ptr->s.sub[j].marks);
         
-        
-            
         }
+            
+        ptr->s.avg=avg(ptr->s);
         
-printf(" ------------------------------------------------------------------------\n");        
-    }
+printf(" -------------------------------------------------------------------------------------\n");        
     
-    
+}
+void fn2(Node *ptr,int k)
+{
     //output code
     //dispalying code
-    printf("s.no\t\tRoll\tname\tsubs\tM1\tM2\tDM\tPL\tavg\n");
-    printf(" ===========================================================================\n");
-    //TODO : need to display sub name
-for(int k=0;k<10;k++)
-{
-    printf("%d\t|\t%d|\t%s\t",k+1,obj[k].rollno,obj[k].name);
+   
+    printf("%d\t|\t%d|\t%s\t",k+1,ptr->s.rollno,ptr->s.name);
    //printf("\n");
     for(int i=0;i<5;i++)
     {
-        printf("|%d\t",obj[k].sub[i].marks);
+        printf("|%d\t",ptr->s.sub[i].marks);
     }
-    printf("\n------------------------------------------------------------------------------------\n");
+    printf("|%.2f\n--------------------------------------------------------------------------------------\n",ptr->s.avg);
 }
+
+main()
+{
     
-}
+    Node *head=NULL,*ptr=NULL;
+    head= (Node *)malloc(sizeof(Node));
+    ptr=head;
+    fn(head,0);
+    for(int i=1;i<10;i++)
+    {
+        ptr->next=(Node *)malloc(sizeof(Node));
+        ptr=ptr->next;
+        fn(ptr,i);
+        ptr->next=NULL;
+        
+        
+    }
+    ptr=head;
+     printf("S.NO\t\tROLL\tNAME\t\t M1\t M2\t DM\t PL\t CI\t AVG\n");
+    printf(" =====================================================================================\n");
+    //TODO : need to display sub name
+
+
+   for(int i=0;i<10;i++)
+    {
+        
+        fn2(ptr,i);
+        ptr=ptr->next;
+        
+    }
+    
+    
+}//end of main
