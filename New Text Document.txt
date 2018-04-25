@@ -1,0 +1,64 @@
+#include <stdio.h>
+//extern struct Stack;
+typedef struct stk{
+    int arr[10];
+    int top;
+    //int size;
+    
+} Stack;
+
+int pop_helper(Stack *s){
+    if(s->top==-1){
+        return 0;
+    }
+    int t = s->arr[s->top];
+    s->arr[s->top]=0;
+    s->top-=1;
+    return t;
+}
+
+int isEmpty_helper(Stack *s){
+    if(s->top==-1)return 1;
+    return 0;
+}
+
+void push_helper(Stack *s,int i){
+    //if(s->top==-1)return;
+    //printf("%d",s->top+1);
+    s->arr[s->top+1]=i;
+    s->top=s->top+1;
+}
+void print_helper(Stack *s){
+    for(int i=0;i<s->top+1;i++){
+        printf("%d\t",s->arr[i]);
+    }
+}
+void create_helper(Stack *s){
+    s->top=-1;
+    
+}
+struct opp{
+    int (*pop)(struct stk*);
+    int (*isEmpty)(struct stk*);
+    void (*push)(struct stk*,int);
+    void (*create)(struct stk*);
+    void (*print)(struct stk*);
+}op;
+int main()
+{
+    Stack *s = (Stack*) malloc(sizeof(Stack));
+    op.create = &create_helper;
+    op.push = &push_helper;
+    op.pop = &pop_helper;
+    op.isEmpty = &isEmpty_helper;
+    op.print = &print_helper;
+    op.create(s);
+    //printf("%d",s->top);
+    op.push(s,5);
+    //printf("%d",s->top);
+    op.print(s);
+    
+    printf(	"Hello, World!\n");
+
+    return 0;
+}
